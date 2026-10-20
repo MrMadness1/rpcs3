@@ -270,6 +270,11 @@ void main_window::Init()
 	});
 #endif
 
+#ifdef RPCS3_MGN_FORK
+	ui->actionDownload_Update->setVisible(false);
+	ui->updateAct->setVisible(false);
+#endif
+
 #ifdef RPCS3_UPDATE_SUPPORTED
 #ifndef _WIN32
 	connect(&m_updater, &update_manager::signal_download_additional_files, this, [this](bool auto_accept)

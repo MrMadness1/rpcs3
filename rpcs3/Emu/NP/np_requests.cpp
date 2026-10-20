@@ -17,6 +17,7 @@
 #include "pb_helpers.h"
 #include "Emu/NP/signaling_handler.h"
 #include "Emu/NP/ip_address.h"
+#include "Emu/NP/rpcn_config.h"
 
 LOG_CHANNEL(rpcn_log, "rpcn");
 
@@ -863,6 +864,11 @@ namespace np
 		// Note that this is fake and needs to be properly implemented both on server and on rpcs3
 
 		extra_nps::print_SceNpMatching2GetLobbyInfoListRequest(req);
+
+		if (g_cfg.net.psn_status == np_psn_status::psn_rpcn && g_cfg_rpcn.get_emulate_lobbies_locally())
+		{
+			lobby_emu_last_world[ctx_id] = req->worldId;
+		}
 
 		const u32 req_id = generate_callback_info(ctx_id, optParam, SCE_NP_MATCHING2_REQUEST_EVENT_GetLobbyInfoList, false);
 		auto cb_info_opt = take_pending_request(req_id);

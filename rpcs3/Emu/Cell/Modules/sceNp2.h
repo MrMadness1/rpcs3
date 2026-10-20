@@ -687,7 +687,7 @@ struct SceNpMatching2LobbyMemberDataInternal
 // Lobby member ID list
 struct SceNpMatching2LobbyMemberIdList
 {
-	be_t<SceNpMatching2LobbyMemberId> memberId;
+	vm::bptr<SceNpMatching2LobbyMemberId> memberId;
 	be_t<u32> memberIdNum;
 	be_t<SceNpMatching2LobbyMemberId> me;
 	u8 padding[6];

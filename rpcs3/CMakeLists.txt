@@ -10,6 +10,8 @@ include(CheckFunctionExists)
 
 set(CMAKE_CXX_STANDARD 23)
 
+add_compile_definitions(RPCS3_MGN_FORK)
+
 if(UNIX AND NOT APPLE AND NOT ANDROID)
     add_compile_definitions(DATADIR="${CMAKE_INSTALL_FULL_DATADIR}/rpcs3")
     # Optionally enable X11 for window management

@@ -44,12 +44,19 @@ namespace rpcs3
 		const auto last_minus = version.find_last_of('-');
 		version = version.substr(0, last_minus);
 
+#ifdef RPCS3_MGN_FORK
+		version += "-MGN";
+#endif
+
 		return version;
 	}
 
 	std::string get_verbose_version()
 	{
 		std::string version = fmt::format("%s | %s", rpcs3::get_version().to_string(), get_branch());
+#ifdef RPCS3_MGN_FORK
+		fmt::append(version, " | MGN");
+#endif
 		if (is_local_build())
 		{
 			fmt::append(version, " | local_build");

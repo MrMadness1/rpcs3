@@ -11,6 +11,7 @@ struct cfg_rpcn : cfg::node
 	cfg::string token{this, "Token", ""};
 	cfg::string hosts{this, "Hosts", "Official RPCN Server|np.rpcs3.net"};
 	cfg::_bool ipv6_support{this, "Experimental IPv6 support", false};
+	cfg::_bool emulate_lobbies_locally{this, "Emulate lobbies locally", true};
 
 	void load();
 	void save() const;
@@ -20,6 +21,7 @@ struct cfg_rpcn : cfg::node
 	std::string get_password() const;
 	std::string get_token() const;
 	bool get_ipv6_support() const;
+	bool get_emulate_lobbies_locally() const;
 	std::vector<std::pair<std::string, std::string>> get_hosts(); // saves default if no valid server in the list
 
 	void set_host(std::string_view host);
@@ -27,6 +29,7 @@ struct cfg_rpcn : cfg::node
 	void set_password(std::string_view password);
 	void set_token(std::string_view token);
 	void set_ipv6_support(bool ipv6_support);
+	void set_emulate_lobbies_locally(bool enabled);
 	bool add_host(std::string_view description, std::string_view host);
 	bool del_host(std::string_view description, std::string_view host);
 

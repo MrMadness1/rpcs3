@@ -346,12 +346,19 @@ error_code sceNpMatching2DestroyContext(SceNpMatching2ContextId ctxId)
 error_code sceNpMatching2LeaveLobby(
     SceNpMatching2ContextId ctxId, vm::cptr<SceNpMatching2LeaveLobbyRequest> reqParam, vm::cptr<SceNpMatching2RequestOptParam> optParam, vm::ptr<SceNpMatching2RequestId> assignedReqId)
 {
-	sceNp2.todo("sceNpMatching2LeaveLobby(ctxId=%d, reqParam=*0x%x, optParam=*0x%x, assignedReqId=*0x%x)", ctxId, reqParam, optParam, assignedReqId);
+	sceNp2.warning("sceNpMatching2LeaveLobby(ctxId=%d, reqParam=*0x%x, optParam=*0x%x, assignedReqId=*0x%x)", ctxId, reqParam, optParam, assignedReqId);
 
 	auto& nph = g_fxo->get<named_thread<np::np_handler>>();
 	if (auto res = generic_match2_error_check(nph, ctxId, reqParam); res != CELL_OK)
 	{
 		return res;
+	}
+
+	const u32 request_id = nph.leave_lobby(ctxId, optParam, reqParam.get_ptr());
+
+	if (assignedReqId)
+	{
+		*assignedReqId = request_id;
 	}
 
 	return CELL_OK;
@@ -414,12 +421,19 @@ error_code sceNpMatching2RegisterLobbyEventCallback(SceNpMatching2ContextId ctxI
 error_code sceNpMatching2GetLobbyMemberDataInternalList(SceNpMatching2ContextId ctxId, vm::cptr<SceNpMatching2GetLobbyMemberDataInternalListRequest> reqParam,
     vm::cptr<SceNpMatching2RequestOptParam> optParam, vm::ptr<SceNpMatching2RequestId> assignedReqId)
 {
-	sceNp2.todo("sceNpMatching2GetLobbyMemberDataInternalList(ctxId=%d, reqParam=*0x%x, optParam=*0x%x, assignedReqId=*0x%x)", ctxId, reqParam, optParam, assignedReqId);
+	sceNp2.warning("sceNpMatching2GetLobbyMemberDataInternalList(ctxId=%d, reqParam=*0x%x, optParam=*0x%x, assignedReqId=*0x%x)", ctxId, reqParam, optParam, assignedReqId);
 
 	auto& nph = g_fxo->get<named_thread<np::np_handler>>();
 	if (auto res = generic_match2_error_check(nph, ctxId, reqParam); res != CELL_OK)
 	{
 		return res;
+	}
+
+	const u32 request_id = nph.get_lobby_member_data_internal_list(ctxId, optParam, reqParam.get_ptr());
+
+	if (assignedReqId)
+	{
+		*assignedReqId = request_id;
 	}
 
 	return CELL_OK;
@@ -549,12 +563,19 @@ error_code sceNpMatching2GetClanLobbyId(SceNpMatching2ContextId ctxId, SceNpClan
 error_code sceNpMatching2GetLobbyMemberDataInternal(
     SceNpMatching2ContextId ctxId, vm::cptr<SceNpMatching2GetLobbyMemberDataInternalRequest> reqParam, vm::cptr<SceNpMatching2RequestOptParam> optParam, vm::ptr<SceNpMatching2RequestId> assignedReqId)
 {
-	sceNp2.todo("sceNpMatching2GetLobbyMemberDataInternal(ctxId=%d, reqParam=*0x%x, optParam=*0x%x, assignedReqId=*0x%x)", ctxId, reqParam, optParam, assignedReqId);
+	sceNp2.warning("sceNpMatching2GetLobbyMemberDataInternal(ctxId=%d, reqParam=*0x%x, optParam=*0x%x, assignedReqId=*0x%x)", ctxId, reqParam, optParam, assignedReqId);
 
 	auto& nph = g_fxo->get<named_thread<np::np_handler>>();
 	if (auto res = generic_match2_error_check(nph, ctxId, reqParam); res != CELL_OK)
 	{
 		return res;
+	}
+
+	const u32 request_id = nph.get_lobby_member_data_internal(ctxId, optParam, reqParam.get_ptr());
+
+	if (assignedReqId)
+	{
+		*assignedReqId = request_id;
 	}
 
 	return CELL_OK;
@@ -784,12 +805,19 @@ error_code sceNpMatching2SendRoomMessage(
 error_code sceNpMatching2JoinLobby(
     SceNpMatching2ContextId ctxId, vm::cptr<SceNpMatching2JoinLobbyRequest> reqParam, vm::cptr<SceNpMatching2RequestOptParam> optParam, vm::ptr<SceNpMatching2RequestId> assignedReqId)
 {
-	sceNp2.todo("sceNpMatching2JoinLobby(ctxId=%d, reqParam=*0x%x, optParam=*0x%x, assignedReqId=*0x%x)", ctxId, reqParam, optParam, assignedReqId);
+	sceNp2.warning("sceNpMatching2JoinLobby(ctxId=%d, reqParam=*0x%x, optParam=*0x%x, assignedReqId=*0x%x)", ctxId, reqParam, optParam, assignedReqId);
 
 	auto& nph = g_fxo->get<named_thread<np::np_handler>>();
 	if (auto res = generic_match2_error_check(nph, ctxId, reqParam); res != CELL_OK)
 	{
 		return res;
+	}
+
+	const u32 request_id = nph.join_lobby(ctxId, optParam, reqParam.get_ptr());
+
+	if (assignedReqId)
+	{
+		*assignedReqId = request_id;
 	}
 
 	return CELL_OK;
@@ -1720,7 +1748,7 @@ error_code sceNpMatching2GetLobbyInfoList(
 error_code sceNpMatching2GetLobbyMemberIdListLocal(
     SceNpMatching2ContextId ctxId, SceNpMatching2LobbyId lobbyId, vm::ptr<SceNpMatching2LobbyMemberId> memberId, u32 memberIdNum, vm::ptr<SceNpMatching2LobbyMemberId> me)
 {
-	sceNp2.todo("sceNpMatching2GetLobbyMemberIdListLocal(ctxId=%d, lobbyId=%d, memberId=*0x%x, memberIdNum=%d, me=*0x%x)", ctxId, lobbyId, memberId, memberIdNum, me);
+	sceNp2.warning("sceNpMatching2GetLobbyMemberIdListLocal(ctxId=%d, lobbyId=%d, memberId=*0x%x, memberIdNum=%d, me=*0x%x)", ctxId, lobbyId, memberId, memberIdNum, me);
 
 	auto& nph = g_fxo->get<named_thread<np::np_handler>>();
 
@@ -1729,7 +1757,7 @@ error_code sceNpMatching2GetLobbyMemberIdListLocal(
 		return SCE_NP_MATCHING2_ERROR_NOT_INITIALIZED;
 	}
 
-	return CELL_OK;
+	return nph.get_lobby_member_id_list_local(ctxId, lobbyId, memberId, memberIdNum, me);
 }
 
 error_code sceNpMatching2SendLobbyInvitation(
@@ -1780,12 +1808,19 @@ error_code sceNpMatching2ContextStop(SceNpMatching2ContextId ctxId)
 error_code sceNpMatching2SetLobbyMemberDataInternal(
     SceNpMatching2ContextId ctxId, vm::cptr<SceNpMatching2SetLobbyMemberDataInternalRequest> reqParam, vm::cptr<SceNpMatching2RequestOptParam> optParam, vm::ptr<SceNpMatching2RequestId> assignedReqId)
 {
-	sceNp2.todo("sceNpMatching2SetLobbyMemberDataInternal(ctxId=%d, reqParam=*0x%x, optParam=*0x%x, assignedReqId=*0x%x)", ctxId, reqParam, optParam, assignedReqId);
+	sceNp2.warning("sceNpMatching2SetLobbyMemberDataInternal(ctxId=%d, reqParam=*0x%x, optParam=*0x%x, assignedReqId=*0x%x)", ctxId, reqParam, optParam, assignedReqId);
 
 	auto& nph = g_fxo->get<named_thread<np::np_handler>>();
 	if (auto res = generic_match2_error_check(nph, ctxId, reqParam); res != CELL_OK)
 	{
 		return res;
+	}
+
+	const u32 request_id = nph.set_lobby_member_data_internal(ctxId, optParam, reqParam.get_ptr());
+
+	if (assignedReqId)
+	{
+		*assignedReqId = request_id;
 	}
 
 	return CELL_OK;

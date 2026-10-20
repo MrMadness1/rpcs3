@@ -100,7 +100,7 @@
 #include "raw_mouse_settings_dialog.h"
 #endif
 
-#if defined(__linux__) || defined(__APPLE__) || (defined(_WIN32) && defined(ARCH_X64))
+#if !defined(RPCS3_MGN_FORK) && (defined(__linux__) || defined(__APPLE__) || (defined(_WIN32) && defined(ARCH_X64)))
 #define RPCS3_UPDATE_SUPPORTED
 #endif
 
@@ -214,7 +214,11 @@ void main_window::Init()
 	CreateConnects();
 
 	setMinimumSize(350, minimumSizeHint().height());    // seems fine on win 10
+#ifdef RPCS3_MGN_FORK
+	setWindowTitle(QString::fromStdString("RPCS3-MGN " + rpcs3::get_verbose_version()));
+#else
 	setWindowTitle(QString::fromStdString("RPCS3 " + rpcs3::get_verbose_version()));
+#endif
 
 	Q_EMIT RequestGlobalStylesheetChange();
 	ConfigureGuiFromSettings();

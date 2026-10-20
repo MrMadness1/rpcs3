@@ -207,9 +207,19 @@ rpcn_account_dialog::rpcn_account_dialog(QWidget* parent)
 	grp_buttons->setLayout(vbox_buttons);
 
 	vbox_global->addWidget(grp_buttons);
-	// vbox_global->addWidget(checkbox_disable_ipv6);
+
+	QCheckBox* checkbox_emulate_lobbies = new QCheckBox(tr("Emulate lobbies locally (RPCN)"));
+	checkbox_emulate_lobbies->setToolTip(tr("When enabled, RPCS3 fakes PSN lobby join/leave callbacks locally so games can proceed when the RPCN server has no real lobby support."));
+	checkbox_emulate_lobbies->setCheckState(g_cfg_rpcn.get_emulate_lobbies_locally() ? Qt::Checked : Qt::Unchecked);
+	vbox_global->addWidget(checkbox_emulate_lobbies);
 
 	setLayout(vbox_global);
+
+	connect(checkbox_emulate_lobbies, &QCheckBox::checkStateChanged, this, [](Qt::CheckState state)
+	{
+		g_cfg_rpcn.set_emulate_lobbies_locally(state == Qt::Checked);
+		g_cfg_rpcn.save();
+	});
 
 	connect(cbx_servers, &QComboBox::currentIndexChanged, this, [this](int index)
 		{

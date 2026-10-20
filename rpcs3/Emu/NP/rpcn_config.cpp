@@ -129,6 +129,11 @@ bool cfg_rpcn::get_ipv6_support() const
 	return ipv6_support.get();
 }
 
+bool cfg_rpcn::get_emulate_lobbies_locally() const
+{
+	return emulate_lobbies_locally.get();
+}
+
 void cfg_rpcn::set_host(std::string_view host)
 {
 	this->host.from_string(host);
@@ -152,6 +157,11 @@ void cfg_rpcn::set_token(std::string_view token)
 void cfg_rpcn::set_ipv6_support(bool ipv6_support)
 {
 	this->ipv6_support.set(ipv6_support);
+}
+
+void cfg_rpcn::set_emulate_lobbies_locally(bool enabled)
+{
+	this->emulate_lobbies_locally.set(enabled);
 }
 
 void cfg_rpcn::set_hosts(const std::vector<std::pair<std::string, std::string>>& vec_hosts)

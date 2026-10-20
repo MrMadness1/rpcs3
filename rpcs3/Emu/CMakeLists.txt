@@ -471,6 +471,7 @@ target_sources(rpcs3_emu PRIVATE
     NP/np_helpers.cpp
     NP/np_notifications.cpp
     NP/np_requests.cpp
+    NP/np_lobby_emu.cpp
     NP/signaling_handler.cpp
     NP/np_structs_extra.cpp
     NP/clans_client.cpp

@@ -196,6 +196,22 @@ namespace np
 		u32 get_lobby_member_data_internal_list(SceNpMatching2ContextId ctx_id, vm::cptr<SceNpMatching2RequestOptParam> optParam, const SceNpMatching2GetLobbyMemberDataInternalListRequest* req);
 		error_code get_lobby_member_id_list_local(SceNpMatching2ContextId ctx_id, SceNpMatching2LobbyId lobby_id, vm::ptr<SceNpMatching2LobbyMemberId> member_id, u32 member_id_num, vm::ptr<SceNpMatching2LobbyMemberId> me);
 
+		struct lobby_emu_bin_attr
+		{
+			SceNpMatching2BinAttr attr{};
+			std::vector<u8> data;
+		};
+
+		struct lobby_emu_state
+		{
+			bool joined = false;
+			SceNpMatching2LobbyId lobby_id{};
+			SceNpMatching2WorldId world_id{1};
+			SceNpMatching2ServerId server_id{1};
+			SceNpMatching2LobbyMemberId member_id{1};
+			std::vector<lobby_emu_bin_attr> member_bin_attrs;
+		};
+
 		u32 get_match2_event(SceNpMatching2EventKey event_key, u32 dest_addr, u32 size);
 
 		// Old GUI Matching requests
@@ -464,22 +480,6 @@ namespace np
 
 		// Misc
 		s64 network_time_offset = 0;
-
-		struct lobby_emu_bin_attr
-		{
-			SceNpMatching2BinAttr attr{};
-			std::vector<u8> data;
-		};
-
-		struct lobby_emu_state
-		{
-			bool joined = false;
-			SceNpMatching2LobbyId lobby_id{};
-			SceNpMatching2WorldId world_id{1};
-			SceNpMatching2ServerId server_id{1};
-			SceNpMatching2LobbyMemberId member_id{1};
-			std::vector<lobby_emu_bin_attr> member_bin_attrs;
-		};
 
 		std::unordered_map<SceNpMatching2ContextId, lobby_emu_state> lobby_emu_states;
 		std::unordered_map<SceNpMatching2ContextId, SceNpMatching2WorldId> lobby_emu_last_world;

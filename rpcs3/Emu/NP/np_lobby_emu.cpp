@@ -60,7 +60,7 @@ namespace np
 				bool replaced = false;
 				for (auto& cur : existing)
 				{
-					if (cur.attr.id == attr.attr.id)
+					if (static_cast<u32>(cur.attr.id) == static_cast<u32>(attr.attr.id))
 					{
 						cur = attr;
 						replaced = true;
@@ -143,7 +143,6 @@ namespace np
 		merge_bin_attrs(state.member_bin_attrs, join_attrs);
 
 		const u32 event_key = get_event_key();
-		auto [include_onlinename, include_avatarurl] = get_match2_context_options(ctx_id);
 
 		auto& edata = allocate_req_result(event_key, SCE_NP_MATCHING2_EVENT_DATA_MAX_SIZE_JoinLobby, sizeof(SceNpMatching2JoinLobbyResponse));
 		auto* resp  = reinterpret_cast<SceNpMatching2JoinLobbyResponse*>(edata.data());
